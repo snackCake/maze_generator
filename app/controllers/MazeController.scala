@@ -21,7 +21,7 @@ class MazeController @Inject()(builder: MazeBuilder, renderer: MazeRenderer[Arra
 
     val width = fetchParam("w", defaultSize)
     val height = fetchParam("h", defaultSize)
-    val grid = MazeGrid(
+    val grid = MazeGrid.createEmpty(
       width = width,
       height = height,
       startX = fetchParam("sx", 0),

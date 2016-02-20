@@ -12,6 +12,6 @@ class MazeModule extends AbstractModule {
 
   override def configure(): Unit = {
     bind(classOf[MazeBuilder]).to(classOf[RecursiveBacktrackBuilder])
-    bind(classOf[MazeRenderer]).to(classOf[PdfMazeRenderer])
+    bind(classOf[MazeRenderer[Array[Byte]]]).to(classOf[PdfMazeRenderer])
   }
 }
