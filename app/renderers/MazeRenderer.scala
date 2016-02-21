@@ -6,7 +6,7 @@ import models.MazeGrid
   *
   * @author Josh Klun (jklun@nerdery.com)
   */
-trait MazeRenderer[T] {
+trait MazeRenderer {
 
-  def render(grid: MazeGrid): T
+  def render(grid: MazeGrid): Array[Byte]
 }
