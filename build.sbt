@@ -6,8 +6,12 @@ lazy val `maze_generator` = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.11.7"
 
-libraryDependencies ++= Seq( jdbc , cache , ws , specs2 % Test,
-  "org.apache.pdfbox" % "pdfbox" % "1.8.11" withSources() withJavadoc()
+libraryDependencies ++= Seq(
+  jdbc withSources() withJavadoc(),
+  cache withSources() withJavadoc(),
+  ws withSources() withJavadoc(),
+  specs2 % Test withSources() withJavadoc(),
+  "org.apache.pdfbox" % "pdfbox" % "2.0.0-SNAPSHOT" withSources()
 )
 
 
@@ -15,5 +19,7 @@ libraryDependencies ++= Seq( jdbc , cache , ws , specs2 % Test,
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )  
 
 resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
+
+resolvers += "ApacheSnapshot" at "https://repository.apache.org/content/groups/snapshots"
 
 routesGenerator := InjectedRoutesGenerator

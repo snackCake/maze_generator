@@ -1,6 +1,11 @@
 package renderers
 
+import java.io.{ByteArrayOutputStream, File}
+
 import models.MazeGrid
+import org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode
+import org.apache.pdfbox.pdmodel.font.PDType0Font
+import org.apache.pdfbox.pdmodel.{PDDocument, PDPageContentStream}
 
 /**
   *
@@ -9,6 +14,26 @@ import models.MazeGrid
 class PdfMazeRenderer extends MazeRenderer {
 
   override def render(grid: MazeGrid): Array[Byte] = {
-    Array[Byte]()
+    val doc = PDDocument.load(new File("conf/asteroids.pdf"))
+    val page = doc.getPage(0)
+    val font = PDType0Font.load(doc, new File("conf/SimSun.ttf"))
+    val mazeContent = new PDPageContentStream(doc, page, AppendMode.APPEND, false)
+    var height = 540.0f
+    val fontSize: Int = 17
+    val mazeString = grid.convertToString
+    mazeString.split('\n').foreach { line =>
+      mazeContent.beginText()
+      mazeContent.setFont(font, fontSize)
+      mazeContent.newLineAtOffset(140.0f, height)
+      mazeContent.showText(line)
+      mazeContent.endText()
+      height -= fontSize
+    }
+    mazeContent.close()
+    val byteStream = new ByteArrayOutputStream()
+    doc.save(byteStream)
+    val bytes = byteStream.toByteArray
+    doc.close()
+    bytes
   }
 }
