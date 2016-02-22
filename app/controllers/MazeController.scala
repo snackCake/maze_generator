@@ -31,11 +31,7 @@ class MazeController @Inject()(builder: MazeBuilder, renderer: MazeRenderer) ext
       endX = fetchParam("ex", width - 1),
       endY = fetchParam("ey", height - 1)
     )
-    println(emptyMaze)
-    val emptyMazeString = emptyMaze.convertToString
-    println(emptyMazeString)
     val maze = builder.build(emptyMaze)
-    println(maze)
     val mazeString = maze.convertToString
     println(mazeString)
     val binaryData = renderer.render(maze)

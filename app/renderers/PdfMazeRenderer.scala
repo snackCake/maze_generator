@@ -16,10 +16,10 @@ class PdfMazeRenderer extends MazeRenderer {
   override def render(grid: MazeGrid): Array[Byte] = {
     val doc = PDDocument.load(new File("conf/asteroids.pdf"))
     val page = doc.getPage(0)
-    val font = PDType0Font.load(doc, new File("conf/SimSun.ttf"))
+    val font = PDType0Font.load(doc, new File("conf/gridfont.ttf"))
     val mazeContent = new PDPageContentStream(doc, page, AppendMode.APPEND, false)
-    var height = 540.0f
-    val fontSize: Int = 17
+    var height = 590.0f
+    val fontSize = 22
     val mazeString = grid.convertToString
     mazeString.split('\n').foreach { line =>
       mazeContent.beginText()
